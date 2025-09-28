@@ -6,8 +6,7 @@ import Translation
 import CoreML
 
 /// Class animalPackage
-/// classe responsável por manipular tudo sobre o código
-/// Gerencia qual é o animal e qual a linguagem do texto
+/// classe responsável por gerenciar qual é o animal e qual a linguagem do texto
 public class AnimalPackage {
     
     // Instanciação do CreateML
