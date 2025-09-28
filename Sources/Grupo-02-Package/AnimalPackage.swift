@@ -7,10 +7,22 @@ import CoreML
 
 /// Class animalPackage
 /// classe responsável por manipular tudo sobre o código
+/// Gerencia qual é o animal e qual a linguagem do texto
 public class AnimalPackage {
     
+    // Instanciação do CreateML
     private let model: Animais3?
     
+    // Init padrão, colocando o modelo treinado dentro da variável
+    /// Init padrão público
+    /// Responsável pela instanciação da classe, colocando nosso modelo treinado com uma configuração pronta
+    /// Caso o modelo não seja encontrado ou dê erro, ele retorna um print e um modelo nil.
+    ///
+    /// Como utilizar (SwiftUI):
+    /// ```swift
+    ///     let animalPackage = AnimalPackage()
+    /// ```
+    ///
     public init(){
         do {
             self.model = try Animais3(configuration: MLModelConfiguration())
@@ -24,10 +36,16 @@ public class AnimalPackage {
     /// Função que pega o model treinado, analisa a descrição sobre o animal e prevê qual o animal
     /// Ela prevê somente ente cachorro, peixe e pássaro
     ///
+    /// Como utilizar (SwiftUI):
+    /// ```swift
+    ///     let animalPackage = AnimalPackage()
+    ///     let qualAnimal = animalPackage.whatAnimal(descricao: "Esse animal é peludo e tem quatro patas")
+    ///     Text("\(qualAnimal)")
+    /// ```
+    ///
     /// - Parameter descricao: Pega um conteúdo textual que descreve um animal
     /// - Returns : Retorna a descrição do animal (por enquanto)
     public func whatAnimal(descricao: String) -> String {
-        // TODO: Colocar o ML e retornar qual é o animal baseado na descrição
         guard let model = model else { return "Modelo não carregado" }
         let predicao: Animais3Output
         do {
@@ -42,6 +60,13 @@ public class AnimalPackage {
     /// Responsável por definir qual o idioma provável de um texto
     /// Caso não dê certo, retorna uma String de não foi possível identificar.
     ///
+    /// Como utilizar (SwiftUI):
+    /// ```swift
+    ///     let animalPackage = AnimalPackage()
+    ///     let qualIdioma = animalPackage.whatLanguage(text: "Mamma mia!")
+    ///     Text("\(qualIdioma)")
+    /// ```
+    ///
     /// - Parameter text: Pega o conteúdo de texto passado
     /// - Returns : Retorna o idioma do respectivo texto
     public func whatLanguage(text: String) -> String {
@@ -50,36 +75,5 @@ public class AnimalPackage {
         return "O idioma é: \(languageName)"
     }
     
-    /// Função de Tradução
-    /// Responsável por Traduzir um texto para vários idiomas
-    /// Puxa de uma API de tradução o necessário
-    /// Traduz para três linguas, portugês (pt), inglês (en)  e francês (fr)
-    ///
-    ///
-    /// - Parameter text: Recebe um conteúdo de texto para traduzir
-    /// - Returns : Retorna um set com a linguagem e o texto traduzido para a linguagem respectiva
-    public func translate(text: String) async throws -> [Locale.Language: String] {
-        var results: [Locale.Language: String] = [:]
-        let targets: [Locale.Language] = [Locale.Language.init(identifier: "it"), Locale.Language.init(identifier: "en"), Locale.Language.init(identifier: "fr")]
-        
-        // Detecta o idioma do texto (usando NaturalLanguage)
-        let detected = NLLanguageRecognizer.dominantLanguage(for: text)
-        let source = detected.map { Locale.Language(identifier: $0.rawValue) }
-
-        for target in targets {
-            // Se origem e destino forem o mesmo idioma, pule ou simplesmente retorne o próprio texto
-            if let source, source == target {
-                results[target] = text // (opcional) retornar o próprio texto
-                continue
-            }
-        }
-        
-        for lang in targets {
-            let config = TranslationSession.Configuration(source: source, target: lang)
-            let session = TranslationSession(installedSource: config.source ?? Locale.Language.init(identifier: "it") ,target: config.target ?? Locale.Language.init(identifier: "en"))
-            let response = try await session.translate(text)
-            results[lang] = response.targetText
-        }
-        return results
-    }
+    
 }
