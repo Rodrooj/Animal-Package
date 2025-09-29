@@ -14,9 +14,9 @@ import CoreML
 /// - WhatLanguage: Método responsável por a partir de um texto fornecido em String, retornar qual o idioma do texto.
 ///
 /// ### Bindings
-/// A classe possui um único binding atualmente que é o *model*, responsável por armazenar no init o modelo ML pronto que o package possui
+/// A classe possui um único binding atualmente que é o *model* pela qual não possui acesso., responsável por armazenar no init o modelo ML pronto que o package possui
 ///
-/// ### Como implementar
+/// ### Como implementar:
 /// - Em swiftUI:
 /// ```swift
 ///     let animalPackage = AnimalPackage()
@@ -27,6 +27,7 @@ import CoreML
 ///     Text("O idioma do texto é: \(idioma)")
 /// ```
 ///
+@available(iOS 18.0, macOS 15.0, *)
 public class AnimalPackage {
     
     // Instanciação do CreateML
@@ -49,7 +50,8 @@ public class AnimalPackage {
     /// Função que pega o model treinado, analisa a descrição sobre o animal e prevê qual o animal
     /// Ela prevê somente ente cachorro, peixe e pássaro
     ///
-    /// Como utilizar (SwiftUI):
+    /// ### Como utilizar (SwiftUI):
+    /// - Em swiftUI:
     /// ```swift
     ///     let animalPackage = AnimalPackage()
     ///     let qualAnimal = animalPackage.whatAnimal(descricao: "Esse animal é peludo e tem quatro patas")
@@ -58,6 +60,7 @@ public class AnimalPackage {
     ///
     /// - Parameter descricao: Pega um conteúdo textual que descreve um animal
     /// - Returns : Retorna a descrição do animal (por enquanto)
+    @available(iOS 18.0, macOS 15.0, *)
     public func whatAnimal(descricao: String) -> String {
         guard let model = model else { return "Modelo não carregado" }
         let predicao: Animais3Output
@@ -73,7 +76,8 @@ public class AnimalPackage {
     /// Responsável por definir qual o idioma provável de um texto
     /// Caso não dê certo, retorna uma String de não foi possível identificar.
     ///
-    /// Como utilizar (SwiftUI):
+    /// ### Como utilizar:
+    /// - Em swiftUI:
     /// ```swift
     ///     let animalPackage = AnimalPackage()
     ///     let qualIdioma = animalPackage.whatLanguage(text: "Mamma mia!")
@@ -82,9 +86,39 @@ public class AnimalPackage {
     ///
     /// - Parameter text: Pega o conteúdo de texto passado
     /// - Returns : Retorna o idioma do respectivo texto
+    @available(iOS 18.0, macOS 15.0, *)
     public func whatLanguage(text: String) -> String {
         let language = NLLanguageRecognizer.dominantLanguage(for: text)
         guard let languageName = language?.rawValue else { return "Não foi possível identificar o idioma" }
         return "O idioma é: \(languageName)"
+    }
+    
+    /// Função de tokenização
+    /// Enumera as palavras de uma String e retorna um array com cada palavra e caracteres especiais.
+    ///
+    /// ### Como utilizar:
+    /// - Em swiftUI:
+    /// ```swift
+    ///     let animalPackage = AnimalPackage()
+    ///     let tokens = animalPackage.whatLanguage(text: "Mamma mia!")
+    ///     VStack {
+    ///         ForEach(tokens.indices, id: \.self) { i in
+    ///             Text(tokens[i])
+    ///         }
+    ///     }
+    /// ```
+    ///
+    /// - Parameter text: Texto que será tokenizado.
+    /// - Returns: Um array de `String` representando as palavras e símbolos do texto.
+    @available(iOS 18.0, macOS 15.0, *)
+    public func tokentizacao(text: String) -> [String] {
+        let tokenizer = NLTokenizer(unit: .word)
+        tokenizer.string = text
+        var palavras: [String] = []
+        tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { tokenRange, _ in
+            palavras.append(String(text[tokenRange]))
+            return true
+        }
+        return palavras
     }
 }

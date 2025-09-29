@@ -26,10 +26,10 @@ O package está disponível principalmente para:
 ### Funções
 
 O package atualmete conta com duas funções:
-- WhatAnimal: Responsável por manipular com CreateML qual é o animal a partir de uma descrição
-- ``Grupo_02_Package/whatAnimal(descricao:)``
+WhatAnimal: Responsável por manipular com CreateML qual é o animal a partir de uma descrição
+- ``AnimalPackage/whatAnimal(descricao:)``
 
-- WhatLanguage: Responsável por definir qual a linguagem daquela descrição ou de um texto
-- ``Grupo_02_Package/whatLanguage(text:)``
+WhatLanguage: Responsável por definir qual a linguagem daquela descrição ou de um texto
+- ``AnimalPackage/whatLanguage(text:)``
 
 
