@@ -4,15 +4,10 @@
 import PackageDescription
 
 let package = Package(
-<<<<<<< HEAD
-    name: "Grupo-02-Package",
-    platforms: [.iOS(.v13), .macOS(.v11)],
-=======
     name: "AnimalPackage",
     platforms: [
         .iOS(.v18), .macOS(.v15)
     ],
->>>>>>> origin/feature/Package-Ph
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
