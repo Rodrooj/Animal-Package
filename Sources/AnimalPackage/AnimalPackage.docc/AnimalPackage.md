@@ -17,9 +17,9 @@ O Modelo ML criado, tem suporte para etiquetas de três animais somente no momen
 
 ## Disponibilidade
 
-O package está disponível principalmente para:
-- MacOS 26
-- iOS 26
+O package está disponível a partir de:
+- MacOS 15
+- iOS 18
 
 ## Topics
 
@@ -27,9 +27,20 @@ O package está disponível principalmente para:
 
 O package atualmete conta com duas funções:
 WhatAnimal: Responsável por manipular com CreateML qual é o animal a partir de uma descrição
-- ``AnimalPackage/whatAnimal(descricao:)``
+- ``AnimalPackage/whatAnimal(descricao:nome:)``
 
 WhatLanguage: Responsável por definir qual a linguagem daquela descrição ou de um texto
 - ``AnimalPackage/whatLanguage(text:)``
 
+Tokentização: Responsável por separar o texto em tokens, ou seja, separar as palavras do texto
+- ``AnimalPackage/tokentizacao(text:)``
+
+ValidateResponse: Responsável por validar a resposta do modelo se está correta ou não
+- ``AnimalPackage/validateResponse(isCorrect:)``
+
+CalculateAccuracy: Responsável por calcular a acurácia do modelo
+- ``AnimalPackage/calculateAccuracy()``
+
+CreateNewDescription: Responsável por criar uma nova descrição para os animais do modelo
+- ``AnimalPackage/createNewDescription(description:animal:)``
 
