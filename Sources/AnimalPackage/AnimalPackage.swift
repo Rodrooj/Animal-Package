@@ -7,6 +7,26 @@ import CoreML
 
 /// Class animalPackage
 /// classe responsável por gerenciar qual é o animal e qual a linguagem do texto
+///
+/// ### Methods
+/// Esta classe possui dois métodos:
+/// - WhatAnimal: Método responsável por a partir de uma descrição fornecida em String, retornar qual é o animal.
+/// - WhatLanguage: Método responsável por a partir de um texto fornecido em String, retornar qual o idioma do texto.
+///
+/// ### Bindings
+/// A classe possui um único binding atualmente que é o *model*, responsável por armazenar no init o modelo ML pronto que o package possui
+///
+/// ### Como implementar
+/// - Em swiftUI:
+/// ```swift
+///     let animalPackage = AnimalPackage()
+///     let animal = animalPackage.whatAnimal("Tem quatro patas e é peludo") // Retorna cachorro
+///     let idioma = animalPackage.whatLanguage("Mamma mia!") // Retorna it (italiano)
+///
+///     Text("O animal da descrição é: \(animal)")
+///     Text("O idioma do texto é: \(idioma)")
+/// ```
+///
 public class AnimalPackage {
     
     // Instanciação do CreateML
@@ -16,12 +36,6 @@ public class AnimalPackage {
     /// Init padrão público
     /// Responsável pela instanciação da classe, colocando nosso modelo treinado com uma configuração pronta
     /// Caso o modelo não seja encontrado ou dê erro, ele retorna um print e um modelo nil.
-    ///
-    /// Como utilizar (SwiftUI):
-    /// ```swift
-    ///     let animalPackage = AnimalPackage()
-    /// ```
-    ///
     public init(){
         do {
             self.model = try Animais3(configuration: MLModelConfiguration())
@@ -73,6 +87,4 @@ public class AnimalPackage {
         guard let languageName = language?.rawValue else { return "Não foi possível identificar o idioma" }
         return "O idioma é: \(languageName)"
     }
-    
-    
 }
