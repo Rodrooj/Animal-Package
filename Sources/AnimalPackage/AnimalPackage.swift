@@ -94,10 +94,9 @@ public class AnimalPackage {
     /// ```
     ///
     /// - Parameter descricao: Pega um conteúdo textual que descreve um animal
-    /// - Parameter nome: Pega o nome do animal (opcional)
     /// - Returns : Retorna a descrição do animal (por enquanto)
     @available(iOS 18.0, macOS 15.0, *)
-    public func whatAnimal(descricao: String, nome: String) -> String {
+    public func whatAnimal(descricao: String) -> String {
         guard let model = model else { return "Modelo não carregado" }
         let predicao: Animais3Output
         do {
@@ -174,7 +173,6 @@ public class AnimalPackage {
     ///    Text("Total de acertos: \(animalPackage.totalCorrect)")
     ///    Text("Total de erros: \(animalPackage.totalErros)")
     ///    ```
-    
     @available(iOS 18.0, macOS 15.0, *)
     public func validateResponse(isCorrect: Bool){
         if !isCorrect {
