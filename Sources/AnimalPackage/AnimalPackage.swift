@@ -55,7 +55,7 @@ import Foundation
 public class AnimalPackage {
     
     // Instanciação do CreateML
-    private let model: Animais3?
+    private let model: DataSet_ENG?
     
     // TotalPredictions é a variável que armazena quantas respostas o modelo deu ao longo da utilização
     var totalPredictions: Int = 0
@@ -74,7 +74,7 @@ public class AnimalPackage {
     /// Caso o modelo não seja encontrado ou dê erro, ele retorna um print e um modelo nil.
     public init(){
         do {
-            self.model = try Animais3(configuration: MLModelConfiguration())
+            self.model = try DataSet_ENG(configuration: MLModelConfiguration())
         } catch {
             print("Erro no modelo: \(error)")
             self.model = nil
@@ -98,7 +98,7 @@ public class AnimalPackage {
     @available(iOS 18.0, macOS 15.0, *)
     public func whatAnimal(descricao: String) -> String {
         guard let model = model else { return "Modelo não carregado" }
-        let predicao: Animais3Output
+        let predicao: DataSet_ENGOutput
         do {
             predicao = try model.prediction(text: "\(descricao)")
             totalPredictions+=1
