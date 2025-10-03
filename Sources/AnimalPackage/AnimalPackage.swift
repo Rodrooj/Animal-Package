@@ -219,15 +219,15 @@ public class AnimalPackage {
         
         let newDescription = [text:label]
 
-        if (animal.compare("cachorro", options: .caseInsensitive) != .orderedSame) &&
-            (animal.compare("peixe", options: .caseInsensitive) != .orderedSame) &&
-            (animal.compare("passaro", options: .caseInsensitive) != .orderedSame) {
+        if (animal.compare("dog", options: .caseInsensitive) != .orderedSame) &&
+            (animal.compare("fish", options: .caseInsensitive) != .orderedSame) &&
+            (animal.compare("bird", options: .caseInsensitive) != .orderedSame) {
             
             newDescriptions.append(newDescription)
             print("Nova descricao adicionada")
             print(newDescriptions)
         } else {
-            print("Animal inválido. Use 'cachorro', 'peixe' ou 'passaro'.")
+            print("Animal inválido. Use 'dog', 'fish' ou 'bird'.")
         }
 
     }
